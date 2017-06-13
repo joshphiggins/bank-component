@@ -7,7 +7,7 @@
     ],
     "SublimeLinter":{
         "linters":{
-            "eslint":{
+            "babel-eslint":{
                 "excludes":[
                     "dist/*",
                     "node_modules/*"
