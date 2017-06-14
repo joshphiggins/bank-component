@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import FilterableBankTable from './components/BankSearch';
 import BankSelect from './components/BankSelect';
 import logo from './logo.svg';
 import './App.css';
@@ -11,7 +12,9 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to React</h2>
         </div>
-        <BankSelect label="Try it" seachable/>
+        <div id="static-container">
+          <FilterableBankTable />
+        </div>
       </div>
     );
   }
