@@ -24,9 +24,13 @@ class BankRow extends Component {
 class BankTable extends Component {
   render() {
     const rows = [];
-    let lastBank = null;
+    //let lastBank = null;
     this.props.bks.forEach((bank) => {
-      if (bank.name.indexOf(this.props.filterText) === 1){
+      console.log(Object.keys(bank).map((key)=> { return bank[key]; }))
+      //console.log(bank);
+      //console.log(bank.city.includes(this.props.filterText));
+      if (
+        bank.city.toLowerCase().indexOf(this.props.filterText) === -1) {
         return;
       }
       rows.push(
@@ -109,7 +113,10 @@ class FilterableBankTable extends Component {
           filterText={this.state.filterText}
           onFilterTextInput={this.handleFilterTextInput}
         />
-        <BankTable bks={BANKS.bks} />
+        <BankTable
+        bks={BANKS.bks}
+        filterText={this.state.filterText}
+        />
       </div>
     );
   }
