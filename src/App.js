@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import FilterableBankTable from './components/BankSearch';
-import BankSelect from './components/BankSelect';
+//import BankSelect from './components/BankSelect';
 import logo from './logo.svg';
 import './App.css';
 

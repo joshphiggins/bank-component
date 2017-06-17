@@ -1,111 +1,88 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
+import UsStateForm from './StateForm';
+import BankTable from './BankTable';
+import SearchBar from './SearchBar';
 const BANKS = require('../data/bank-search.js');
 
-class BankRow extends Component {
-  render () {
-    return (
-      <tr>
-        <td>{this.props.name}</td>
-        <td>{this.props.holding_co}</td>
-        <td>{this.props.date}</td>
-        <td>{this.props.city}</td>
-        <td>{this.props.state}</td>
-        <td>{this.props.msa}</td>
-        <td>{this.props.region}</td>
-        <td>{this.props.asset}</td>
-        <td>{this.props.offices}</td>
-      </tr>
-    );
+filterTable = (value, type) => {
+  switch (type) {
+    case 'filterText':
+      this.setState({filterText: val});
+      break;
+    case 'filterUsState':
+      this.setState({filterUsState: val})
+    default:
+      break;
   }
 }
 
-class BankTable extends Component {
-  render() {
-    const rows = [];
-    //let lastBank = null;
-    this.props.bks.forEach((bank) => {
-      console.log(Object.keys(bank).map((key)=> { return bank[key]; }))
-      //console.log(bank);
-      //console.log(bank.city.includes(this.props.filterText));
-      if (
-        bank.city.toLowerCase().indexOf(this.props.filterText) === -1) {
-        return;
-      }
-      rows.push(
-        <BankRow
-        key={bank.rssd}
-        name={bank.name}
-        holding_co={bank.holding_co}
-        date={bank.date}
-        city={bank.city}
-        state={bank.state}
-        msa={bank.msa}
-        asset={bank.asset}
-        region={bank.region}
-        offices={bank.offices}
-        />
-      )
-    });
-    return (
-      <table>
-        <colgroup span="4"></colgroup>
-        <tr>
-          <th>Name</th>
-          <th>Holding Company</th>
-          <th>Date</th>
-          <th>City (Headquarters)</th>
-          <th>State</th>
-          <th>MSA</th>
-          <th>Region</th>
-          <th>Total Assets</th>
-          <th>No. of Offices</th>
-        </tr>
-        <tbody>{rows}</tbody>
-      </table>
-    );
-  }
+filterBy = () => {
+  let filteredItems = this.state.bks;
+  let state = this.state;
+  ["filterText", "filterUsState"].forEach(function(filterBy){
+    let filterValue = state[filterBy]
+  })
 }
-
-class SearchBar extends Component {
-  constructor(props) {
-    super(props);
-    this.handleFilterTextInputChange = this.handleFilterTextInputChange.bind(this);
-  }
-
-  handleFilterTextInputChange(e){
-    this.props.onFilterTextInput(e.target.value);
-  }
-
-  render () {
-    return (
-      <form>
-        <input
-        type="text"
-        placeholder="Search..."
-        value={this.props.filterText}
-        onChange={this.handleFilterTextInputChange}
-        />
-      </form>
-    )
-  }
-}
-
 class FilterableBankTable extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      filterText: ''
+      filterText: '',
+      filterUsState: '',
+      bks: BANKS.bks
     };
     this.handleFilterTextInput = this.handleFilterTextInput.bind(this);
+    this.handleFilterUsState = this.handleFilterUsState.bind(this);
+    //this.handleChildUpdates = this.handleChildUpdates.bind(this);
   };
   handleFilterTextInput(filterText){
+    console.log('Text: ' + filterText)
+
     this.setState({
       filterText: filterText
     });
   }
+  handleFilterUsState(filterUsState){
+    console.log('State: ' + filterUsState.value)
+    this.setState({
+      filterUsState: filterUsState.value
+    });
+  }
 
+  const filterBankRows = (filterText) => {
+      let updatedList = this.state.bks;
+      updatedList = updatedList.filter(function(item){
+        return item.toLowerCase().search(
+          filterText.value.toLowerCase()) !== -1;
+        });
+    }
+
+  /*handleChildUpdates(filterUsState, filterText){
+    console.log('State ' + filterUsState.value)
+    console.log('Text ' + filterText)
+    /*const filterBankRows = (filterText) => {
+      let updatedList = this.state.bks;
+      updatedList = updatedList.filter(function(item){
+        return item.toLowerCase().search(
+          filterText.value.toLowerCase()) !== -1;
+        });
+    }
+    this.setState({
+      filterText: filterText,
+      filterUsState: filterUsState.value,
+      bks: BANKS.bks //filterBankRows
+    })
+  }*/
+
+
+    // this.setState({items: updatedList});
+
+// 1- currently intial state is being set by passing BANK.bks
+// need to have a function in the parent component that is doing the filter action
+// then pass that down too the table as a prop
+// 2 - once the search or the state filter is set then funciton in parent comp
+// gets updates and passed down to the child
   render () {
     return (
       <div>
@@ -113,9 +90,15 @@ class FilterableBankTable extends Component {
           filterText={this.state.filterText}
           onFilterTextInput={this.handleFilterTextInput}
         />
+        <UsStateForm
+          bks={this.state.bks}
+          filterUsState={this.state.filterUsState}
+          onFilterUsState={this.handleFilterUsState}
+        />
         <BankTable
-        bks={BANKS.bks}
+        bks={this.state.bks}
         filterText={this.state.filterText}
+        filterUsState={this.state.filterUsState}
         />
       </div>
     );
