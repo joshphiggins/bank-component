@@ -14,7 +14,6 @@ class FilterableBankTable extends Component {
     };
   };
   filterItems = (value, type) => {
-    console.log("filterItems", value)
     switch (type) {
       case 'filterText':
         this.setState({filterText: value});
@@ -26,10 +25,9 @@ class FilterableBankTable extends Component {
         break;
     }
   }
-
   render () {
     let filteredItems = this.props.bks;
-    var state = this.state;
+    let state = this.state;
     ["filterText", "filterUsState"].forEach((filterBy) => {
       let filterValue = state[filterBy];
       let filterByKey = {filterText: 'name', filterUsState: 'state'}
