@@ -50,7 +50,7 @@ class FilterableBankTable extends Component {
     });
   }
 
-  const filterBankRows = (filterText) => {
+  filterBankRows = (filterText) => {
       let updatedList = this.state.bks;
       updatedList = updatedList.filter(function(item){
         return item.toLowerCase().search(

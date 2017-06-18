@@ -1,28 +1,6 @@
-var filterData = [
-  { name: 'Aang', bender: 'yes', nation: 'Air', person: 'yes', show: 'ATLA' },
-  { name: 'Appa', bender: 'yes', nation: 'Air', person: 'no', show: 'ATLA' },
-  { name: 'Asami', bender: 'no', nation: 'Republic City', person: 'yes', show: 'LOK' },
-  { name: 'Azula', bender: 'yes', nation: 'Fire', person: 'yes', show: 'ATLA' },
-  { name: 'Bolin', bender: 'yes', nation: 'Earth', person: 'yes', show: 'LOK' },
-  { name: 'Katara', bender: 'yes', nation: 'Water', person: 'yes', show: 'ATLA' },
-  { name: 'Korra', bender: 'yes', nation: 'Water', person: 'yes', show: 'LOK' },
-  { name: 'Jinora', bender: 'yes', nation: 'Air', person: 'yes', show: 'LOK' },
-  { name: 'Lin Beifong', bender: 'yes', nation: 'Republic City', person: 'yes', show: 'LOK' },
-  { name: 'Pabu', bender: 'no', nation: 'Fire', person: 'no', show: 'LOK' },
-  { name: 'Momo', bender: 'no', nation: 'Air',  person: 'no', show: 'ATLA'},
-  { name: 'Mai', bender: 'no', nation: 'Fire', person: 'yes', show: 'ATLA' },
-  { name: 'Mako', bender: 'yes', nation: 'Fire', person: 'yes', show: 'LOK' },
-  { name: 'Naga', bender: 'no', nation: 'Water', person: 'no', show: 'LOK'},
-  { name: 'Sokka', bender: 'no', nation: 'Water', person: 'yes', show: 'ATLA' },
-  { name: 'Suki', bender: 'no', nation: 'Earth', person: 'yes', show: 'ATLA' },
-  { name: 'Tenzin', bender: 'yes', nation: 'Air', person: 'yes', show: 'LOK' },
-  { name: 'Toph Beifong', bender: 'yes', nation: 'Earth', person: 'yes', show: 'ATLA' },
-  { name: 'Ty Lee', bender: 'no', nation: 'Fire', person: 'yes', show: 'ATLA' },
-  { name: 'Uncle Iroh', bender: 'yes', nation: 'Fire', person: 'yes', show: 'ATLA' },
-  { name: 'Varrick', bender: 'no', nation: 'Republic City', person: 'yes', show: 'LOK' },
-  { name: 'Zhu Li', bender: 'no', nation: 'Republic City', person: 'yes', show: 'LOK' },
-  { name: 'Zuko', bender: 'yes', nation: 'Fire', person: 'yes', show: 'ATLA' }
-];
+import React from 'react';
+
+
 var FilterForm = React.createClass({
   getInitialState: function() {
     return {
@@ -55,30 +33,39 @@ var FilterForm = React.createClass({
   render: function() {
     var filteredItems = this.props.data;
     var state = this.state;
+    console.log('filteredItems', filteredItems);
+    console.log('state', state);
     ["bender", "nation", "person", "show"].forEach(function(filterBy) {
       var filterValue = state[filterBy];
       if (filterValue) {
+        console.log('filtervalue', filterValue);
         filteredItems = filteredItems.filter(function(item) {
-          return item[filterBy] === filterValue;
+          console.log('item', item[filterBy])
+          return item[filterBy] === filterValue; // return === || indexOf
         });
+        console.log(filteredItems);
       }
     });
     var benderArray = this.props.data.map(function(item) { return item.bender });
     var nationArray = this.props.data.map(function(item) { return item.nation });
     var personArray = this.props.data.map(function(item) { return item.person });
     var showArray = this.props.data.map(function(item) { return item.show });
-    benderArray.unshift("");
-    nationArray.unshift("");
-    personArray.unshift("");
-    showArray.unshift("");
+    let unqiueBender = Array.from(new Set(benderArray))
+    let unqiueNation = Array.from(new Set(nationArray))
+    let unqiuePerson = Array.from(new Set(personArray))
+    let unqiueShow = Array.from(new Set(showArray))
+    unqiueBender.unshift("");
+    unqiueNation.unshift("");
+    unqiuePerson.unshift("");
+    unqiueShow.unshift("");
     return (
       <div className="container">
         <FilterOptions
             data={this.state.data}
-            benderOptions={benderArray}
-            nationOptions={nationArray}
-            personOptions={personArray}
-            showOptions={showArray}
+            benderOptions={unqiueBender}
+            nationOptions={unqiueNation}
+            personOptions={unqiuePerson}
+            showOptions={unqiueShow}
             changeOption={this.filterItems} />
         <div className="filter-form">
           <FilterItems data={filteredItems} />
@@ -138,7 +125,5 @@ var FilterItems = React.createClass({
     );
   }
 });
-React.render(
-  <FilterForm data={filterData} />,
-  document.getElementById('filter')
-);
+
+export default FilterForm;
