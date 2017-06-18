@@ -8,7 +8,7 @@ class SearchBar extends Component {
   }
 
   handelChange(e){
-    this.props.onFilterTextInput(e.target.value);
+    this.props.onFilterTextInput(e.target.value, "filterText");
   }
 
   render () {

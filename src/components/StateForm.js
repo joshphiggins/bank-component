@@ -18,11 +18,13 @@ class UsStateForm extends Component{
     event.preventDefault();
   }
   handleChange(event){
-    this.props.onFilterUsState({value: event.target.value});
+    this.props.onFilterUsState(event.target.value, "filterUsState");
   }
   render () {
     let usStateArray = this.props.bks.map((a) => {return a.state})
     let uniqueUsStates = Array.from(new Set(usStateArray))
+    uniqueUsStates.sort()
+    uniqueUsStates.unshift("")
     let usStateRows = [];
     uniqueUsStates.forEach((usState) => {
       usStateRows.push(<UsStateOptions key={usState} usState={usState} />)
