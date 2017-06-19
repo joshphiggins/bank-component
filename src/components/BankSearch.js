@@ -10,6 +10,8 @@ class FilterableBankTable extends Component {
     this.state = {
       filterText: '',
       filterUsState: '',
+      filterAssetHigh: '',
+      filterAssetLow: '',
       bks: this.props.bks
     };
   };
@@ -21,6 +23,12 @@ class FilterableBankTable extends Component {
       case 'filterUsState':
         this.setState({filterUsState: value})
         break;
+      case 'filterAssetHigh':
+        this.setState({filterAssetHigh: value})
+        break;
+      case 'filterAssetLow':
+        this.setState({filterAssetLow: value})
+        break;
       default:
         break;
     }
@@ -28,7 +36,8 @@ class FilterableBankTable extends Component {
   render () {
     let filteredItems = this.props.bks;
     let state = this.state;
-    ["filterText", "filterUsState"].forEach((filterBy) => {
+    ["filterText", "filterUsState", "filterAssetHigh", "filterAssetLow"]
+      .forEach((filterBy) => {
       let filterValue = state[filterBy];
       let filterByKey = {filterText: 'name', filterUsState: 'state'}
       let filterObj = filterByKey[filterBy];
