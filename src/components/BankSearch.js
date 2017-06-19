@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import UsStateButton from './StateForm';
+import AssetButton from './AssetButton';
 import BankTable from './BankTable';
 import SearchBar from './SearchBar';
+import { ButtonToolbar } from 'react-bootstrap';
 
 class FilterableBankTable extends Component {
   constructor(props) {
@@ -64,11 +66,27 @@ class FilterableBankTable extends Component {
           </form>
         </div>
         <div className="col-lg-4">
-          <UsStateButton
-            bks={this.state.bks}
-            filterUsState={this.state.filterUsState}
-            onFilterUsState={this.filterItems}
+          <ButtonToolbar>
+            <UsStateButton
+              bks={this.state.bks}
+              filterUsState={this.state.filterUsState}
+              onFilterUsState={this.filterItems}
+            />
+          <AssetButton
+            valueArray={[0, 500, 1000, 5000]}
+            title="Asset High"
+            bsStyle="default"
+            id="asset-high-button"
+            gtOrlt="&lt;"
           />
+          <AssetButton
+            valueArray={[0, 500, 1000, 5000]}
+            title="Asset Low"
+            bsStyle="default"
+            id="asset-low-button"
+            gtOrlt="&gt;"
+          />
+          </ButtonToolbar>
         </div>
         <BankTable
         bks={filteredItems}

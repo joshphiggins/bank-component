@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { DropdownButton, MenuItem, ButtonToolbar } from 'react-bootstrap';
+import { DropdownButton, MenuItem } from 'react-bootstrap';
 
 function UsStateOptions ({ usState, onSelect }){
   return (
@@ -19,8 +19,8 @@ class UsStateButton extends Component{
   handleChange(event){
     let none = event === 'None';
     let filterBy = none ? "Filter By State" : `Filtered by ${event}`
-    this.props.onFilterUsState(value, "filterUsState");
     let value = none ? "" : event
+    this.props.onFilterUsState(value, "filterUsState");
     this.setState({usStateTitle: filterBy})
 
   }
@@ -37,7 +37,6 @@ class UsStateButton extends Component{
         />)
     });
     return (
-        <ButtonToolbar>
           <DropdownButton
             title={this.state.usStateTitle}
             bsStyle="default"
@@ -45,19 +44,7 @@ class UsStateButton extends Component{
             >
             {usStateRows}
           </DropdownButton>
-          <DropdownButton title="Asset High" bsStyle="default" id="dropdown-asset-high">
-              <MenuItem eventKey="0">&lt; $0 </MenuItem>
-              <MenuItem eventKey="500">&lt; $500M</MenuItem>
-              <MenuItem eventKey="1000">&lt; $1,000M</MenuItem>
-              <MenuItem eventKey="5000">&lt; $5,000M</MenuItem>
-          </DropdownButton>
-          <DropdownButton title="Asset Low" bsStyle="default" id="dropdown-asset-low">
-              <MenuItem eventKey="0"> &gt; $0 </MenuItem>
-              <MenuItem eventKey="500"> &gt; $500M</MenuItem>
-              <MenuItem eventKey="1000"> &gt; $1,000M</MenuItem>
-              <MenuItem eventKey="5000"> &gt; $5,000M</MenuItem>
-          </DropdownButton>
-        </ButtonToolbar>
+
     );
   }
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import { Table } from 'react-bootstrap';
-import { formatDollars } from '../helpers';
+import { formatDollarsDecimal } from '../helpers';
 
 
 function BankRow ({ name, holding_co, date, city,
@@ -18,7 +18,7 @@ function BankRow ({ name, holding_co, date, city,
         <p>{moment(date).format('M/D/YYYY')}</p>
       </td>
       <td>
-        <p>{formatDollars(asset)}</p>
+        <p>{formatDollarsDecimal(asset)}</p>
       </td>
       <td>
         <p>{offices}</p>
