@@ -1,22 +1,36 @@
 import React, { Component } from 'react';
+import moment from 'moment';
+import { Table } from 'react-bootstrap';
+import { formatDollars } from '../helpers';
 
 
 function BankRow ({ name, holding_co, date, city,
             state, msa, region, asset, offices }) {
   return (
-    <tr className="BankTable-tr">
-      <td className="BankTable-td">{name}</td>
-      <td className="BankTable-td">
-        <p>Date: {date}</p>
-        <p>Holding Co.: {holding_co}</p>
-        <p>Assets: {asset}</p>
-        <p>Offices: {offices}</p>
+    <tr>
+      <td>
+        <p>{name}</p>
       </td>
-      <td className="BankTable-td">
-        <p>City: {city}</p>
-        <p>State: {state}</p>
-        <p>MSA: {msa}</p>
-        <p>Region: {region}</p>
+      <td>
+        <p>{holding_co}</p>
+      </td>
+      <td>
+        <p>{moment(date).format('M/D/YYYY')}</p>
+      </td>
+      <td>
+        <p>{formatDollars(asset)}</p>
+      </td>
+      <td>
+        <p>{offices}</p>
+      </td>
+      <td>
+        <p>{city}, {state}</p>
+      </td>
+      <td>
+        <p>{msa}</p>
+      </td>
+      <td>
+        <p>{region}</p>
       </td>
     </tr>
   );
@@ -37,11 +51,6 @@ class BankTable extends Component {
   render() {
     const rows = [];
     this.props.bks.forEach((bank) => {
-      /* if (
-        (bank.name.toLowerCase().indexOf(this.props.filterText) === -1 ||
-        (!bank.state && this.props.filterUsState))) {
-        return;
-      } */
       rows.push(
         <BankRow
         key={bank.rssd}
@@ -59,16 +68,21 @@ class BankTable extends Component {
     });
     return (
       <div className="container-fluid">
-        <table className="table table-striped">
-          <thead className="thead-default">
+        <Table striped bordered condensed hover>
+          <thead>
             <tr>
               <th>Name</th>
-              <th>Details</th>
-              <th>Location</th>
+              <th>Holding Co</th>
+              <th>Date</th>
+              <th>Assets</th>
+              <th>Offices</th>
+              <th>Headquarters</th>
+              <th>MSA</th>
+              <th>Region</th>
             </tr>
           </thead>
-          <tbody className="BankTable-tbody">{rows}</tbody>
-        </table>
+          <tbody>{rows}</tbody>
+        </Table>
       </div>
     );
   }

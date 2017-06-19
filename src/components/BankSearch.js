@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import UsStateForm from './StateForm';
+import UsStateButton from './StateForm';
 import BankTable from './BankTable';
 import SearchBar from './SearchBar';
 
@@ -55,7 +55,7 @@ class FilterableBankTable extends Component {
           </form>
         </div>
         <div className="col-lg-4">
-          <UsStateForm
+          <UsStateButton
             bks={this.state.bks}
             filterUsState={this.state.filterUsState}
             onFilterUsState={this.filterItems}

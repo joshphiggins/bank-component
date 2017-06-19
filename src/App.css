@@ -23,3 +23,6 @@
   to { transform: rotate(360deg); }
 }
 
+p.vert-align{
+  align-items : center;
+}
