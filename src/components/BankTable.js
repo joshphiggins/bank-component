@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
 
 
-
 function BankRow ({ name, holding_co, date, city,
             state, msa, region, asset, offices }) {
   return (
-    <tr>
-      <td className="table-name font-blue">{name}</td>
-      <td className="table-details">
-        <p>Holding Co.: {holding_co}</p>
+    <tr className="BankTable-tr">
+      <td className="BankTable-td">{name}</td>
+      <td className="BankTable-td">
         <p>Date: {date}</p>
+        <p>Holding Co.: {holding_co}</p>
+        <p>Assets: {asset}</p>
+        <p>Offices: {offices}</p>
+      </td>
+      <td className="BankTable-td">
         <p>City: {city}</p>
         <p>State: {state}</p>
         <p>MSA: {msa}</p>
         <p>Region: {region}</p>
-        <p>Assets: {asset}</p>
-        <p>Offices: {offices}</p>
       </td>
     </tr>
   );
@@ -57,16 +58,18 @@ class BankTable extends Component {
       )
     });
     return (
-      <table className="table table-bordered table-striped table-condensed">
-        <colgroup span="4"></colgroup>
-        <thread className="">
-          <tr>
-            <th>Name</th>
-            <th>Details</th>
-          </tr>
-        </thread>
-        <tbody>{rows}</tbody>
-      </table>
+      <div className="container-fluid">
+        <table className="table table-striped">
+          <thead className="thead-default">
+            <tr>
+              <th>Name</th>
+              <th>Details</th>
+              <th>Location</th>
+            </tr>
+          </thead>
+          <tbody className="BankTable-tbody">{rows}</tbody>
+        </table>
+      </div>
     );
   }
 }

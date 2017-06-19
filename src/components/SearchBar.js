@@ -13,14 +13,13 @@ class SearchBar extends Component {
 
   render () {
     return (
-      <form>
         <input
         type="text"
+        className="form-control"
         placeholder="Search..."
         value={this.props.filterText}
         onChange={this.handelChange}
         />
-      </form>
     )
   }
 }

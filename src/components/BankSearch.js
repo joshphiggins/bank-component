@@ -45,16 +45,22 @@ class FilterableBankTable extends Component {
     });
 
     return (
-      <div>
-        <SearchBar
-          filterText={this.state.filterText}
-          onFilterTextInput={this.filterItems}
-        />
-        <UsStateForm
-          bks={this.state.bks}
-          filterUsState={this.state.filterUsState}
-          onFilterUsState={this.filterItems}
-        />
+      <div className="container-fluid">
+        <div className="col-lg-6">
+          <form>
+            <SearchBar
+              filterText={this.state.filterText}
+              onFilterTextInput={this.filterItems}
+            />
+          </form>
+        </div>
+        <div className="col-lg-4">
+          <UsStateForm
+            bks={this.state.bks}
+            filterUsState={this.state.filterUsState}
+            onFilterUsState={this.filterItems}
+          />
+        </div>
         <BankTable
         bks={filteredItems}
         filterText={this.state.filterText}

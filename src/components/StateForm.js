@@ -30,15 +30,15 @@ class UsStateForm extends Component{
       usStateRows.push(<UsStateOptions key={usState} usState={usState} />)
     });
     return (
-      <form onSubmit={this.handleSubmit}>
         <label>
           Filter banks by State:
-          <select value = {this.props.filterUsState} onChange={this.handleChange}>
+          <select
+            className="custom-select"
+            value={this.props.filterUsState}
+            onChange={this.handleChange}>
             {usStateRows}
           </select>
         </label>
-        <input type="submit" value="Submit" />
-      </form>
     );
   }
 }
