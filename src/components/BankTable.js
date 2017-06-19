@@ -6,15 +6,17 @@ function BankRow ({ name, holding_co, date, city,
             state, msa, region, asset, offices }) {
   return (
     <tr>
-      <td>{name}</td>
-      <td>{holding_co}</td>
-      <td>{date}</td>
-      <td>{city}</td>
-      <td>{state}</td>
-      <td>{msa}</td>
-      <td>{region}</td>
-      <td>{asset}</td>
-      <td>{offices}</td>
+      <td className="table-name font-blue">{name}</td>
+      <td className="table-details">
+        <p>Holding Co.: {holding_co}</p>
+        <p>Date: {date}</p>
+        <p>City: {city}</p>
+        <p>State: {state}</p>
+        <p>MSA: {msa}</p>
+        <p>Region: {region}</p>
+        <p>Assets: {asset}</p>
+        <p>Offices: {offices}</p>
+      </td>
     </tr>
   );
 }
@@ -55,19 +57,14 @@ class BankTable extends Component {
       )
     });
     return (
-      <table>
+      <table className="table table-bordered table-striped table-condensed">
         <colgroup span="4"></colgroup>
-        <tr>
-          <th>Name</th>
-          <th>Holding Company</th>
-          <th>Date</th>
-          <th>City (Headquarters)</th>
-          <th>State</th>
-          <th>MSA</th>
-          <th>Region</th>
-          <th>Total Assets</th>
-          <th>No. of Offices</th>
-        </tr>
+        <thread className="">
+          <tr>
+            <th>Name</th>
+            <th>Details</th>
+          </tr>
+        </thread>
         <tbody>{rows}</tbody>
       </table>
     );

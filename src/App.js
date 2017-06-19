@@ -3,6 +3,7 @@ import FilterableBankTable from './components/BankSearch';
 import logo from './logo.svg';
 import './App.css';
 
+
 const BANKS = require('./data/bank-search.js');
 
 class App extends Component {
