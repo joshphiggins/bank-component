@@ -4,7 +4,7 @@ import UsStateSelect from './StateForm';
 import AssetSelect from './AssetSelect';
 import BankTable from './BankTable';
 import SearchBar from './SearchBar';
-import { Form, FormGroup } from 'react-bootstrap';
+import { Grid, Col, Form, FormGroup } from 'react-bootstrap';
 
 class FilterableBankTable extends Component {
   constructor(props) {
@@ -67,7 +67,8 @@ class FilterableBankTable extends Component {
 
     return (
       <div className="container-fluid">
-        <div className="col-lg-6">
+        <Grid>
+          <Col md={12} >
           <Form inline>
             <FormGroup controlId="formBankSearch">
               <SearchBar
@@ -100,13 +101,14 @@ class FilterableBankTable extends Component {
               filterState="filterAssetHigh"
             />
           </Form>
-        </div>
+        </Col>
+        </Grid>
         <BankTable
         bks={filteredItems}
         filterText={this.state.filterText}
         filterUsState={this.state.filterUsState}
         />
-      </div>
+    </div>
     );
   }
 }

@@ -4,7 +4,7 @@ import { formatDollarsRounded } from '../helpers';
 
 function AssetOptions ({gtOrlt, value}){
   const parseBool = Number.isInteger(value)
-  const parseValue = parseBool ? formatDollarsRounded(value) : value
+  const parseValue = parseBool ? formatDollarsRounded(value) + 'M' : value
   return(
     /*<MenuItem key={key} eventKey={key}
     onSelect={onSelect}>{gtOrlt} {formatDollarsRounded(value)}M</MenuItem>*/
