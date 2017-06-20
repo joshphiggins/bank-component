@@ -1,27 +1,23 @@
 import React, { Component } from 'react';
-import { DropdownButton, MenuItem } from 'react-bootstrap';
+import { ControlLabel, FormGroup, FormControl } from 'react-bootstrap';
 
-function UsStateOptions ({ usState, onSelect }){
+function UsStateOptions ({ usState }){
   return (
-    <MenuItem eventKey={ usState } onSelect={onSelect}>{ usState }</MenuItem>
+    <option value={usState}>{usState}</option>
   )
 }
 
-class UsStateButton extends Component{
+class UsStateSelecto extends Component{
   constructor(props){
     super(props);
     this.handleChange = this.handleChange.bind(this);
-    this.state = {
-      usStateTitle: 'Filter By State'
-    }
   }
 
   handleChange(event){
-    let none = event === 'None';
-    let filterBy = none ? "Filter By State" : `Filtered by ${event}`
-    let value = none ? "" : event
-    this.props.onFilterUsState(value, "filterUsState");
-    this.setState({usStateTitle: filterBy})
+    let value = event.target.value
+    let none = value === 'None';
+    let filterValue = none ? "" : value
+    this.props.onFilterUsState(filterValue, "filterUsState");
 
   }
   render () {
@@ -31,22 +27,24 @@ class UsStateButton extends Component{
     uniqueUsStates.unshift("None")
     let usStateRows = [];
     uniqueUsStates.forEach((usState) => {
-      usStateRows.push(<UsStateOptions
-        key={usState} eventKey={usState}
-        usState={usState} onSelect={this.handleChange}
+      usStateRows.push(
+        <UsStateOptions
+          key={usState}
+          usState={usState}
         />)
     });
     return (
-          <DropdownButton
-            title={this.state.usStateTitle}
-            bsStyle="default"
-            id="dropdown-state"
-            >
-            {usStateRows}
-          </DropdownButton>
+          <FormGroup controlId="formStateSelect">
+            <ControlLabel>State</ControlLabel>
+            {' '}
+            <FormControl componentClass="select"
+              placeholder="select" onChange={this.handleChange}>
+                { usStateRows }
+            </FormControl>
+          </FormGroup>
 
     );
   }
 }
 
-export default UsStateButton;
+export default UsStateSelecto;

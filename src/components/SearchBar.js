@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 
 
 class SearchBar extends Component {
@@ -13,13 +14,17 @@ class SearchBar extends Component {
 
   render () {
     return (
-        <input
-        type="text"
-        className="form-control"
-        placeholder="Search..."
-        value={this.props.filterText}
-        onChange={this.handelChange}
-        />
+        <FormGroup controlId="formSearch">
+          <ControlLabel>Bank Name</ControlLabel>
+            {' '}
+            <FormControl
+              type="text"
+              className="form-control"
+              placeholder="Search..."
+              value={this.props.filterText}
+              onChange={this.handelChange}
+            />
+        </FormGroup>
     )
   }
 }
