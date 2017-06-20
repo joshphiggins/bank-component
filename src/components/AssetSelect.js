@@ -6,8 +6,6 @@ function AssetOptions ({gtOrlt, value}){
   const parseBool = Number.isInteger(value)
   const parseValue = parseBool ? formatDollarsRounded(value) + 'M' : value
   return(
-    /*<MenuItem key={key} eventKey={key}
-    onSelect={onSelect}>{gtOrlt} {formatDollarsRounded(value)}M</MenuItem>*/
     <option value={value}>{parseValue}</option>
   )
 }
@@ -22,12 +20,11 @@ class AssetSelect extends Component {
     let value = event.target.value
     let none = value === 'None';
     let filterValue = none ? "" : value
-    this.props.onFilterAsset(filterValue, this.props.filterState)
+    this.props.onFilterAsset(filterValue)
   }
 
   render () {
   const {valueArray} = this.props
-  // const updateValueArray = valueArray.map((item) => {return formatDollarsRounded(item);})
   valueArray.unshift("None")
     return (
       <FormGroup controlId={this.props.controlId}>

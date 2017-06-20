@@ -9,7 +9,7 @@ class SearchBar extends Component {
   }
 
   handelChange(e){
-    this.props.onFilterTextInput(e.target.value, "filterText");
+    this.props.onFilterTextInput(e.target.value);
   }
 
   render () {

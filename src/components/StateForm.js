@@ -7,7 +7,7 @@ function UsStateOptions ({ usState }){
   )
 }
 
-class UsStateSelecto extends Component{
+class UsStateSelect extends Component{
   constructor(props){
     super(props);
     this.handleChange = this.handleChange.bind(this);
@@ -17,11 +17,12 @@ class UsStateSelecto extends Component{
     let value = event.target.value
     let none = value === 'None';
     let filterValue = none ? "" : value
-    this.props.onFilterUsState(filterValue, "filterUsState");
+    // this.props.onFilterUsState(filterValue, "filterUsState");
+    this.props.onFilterUsState(filterValue)
 
   }
   render () {
-    let usStateArray = this.props.bks.map((a) => {return a.state})
+    let usStateArray = this.props.bks.map((a) => a.state)
     let uniqueUsStates = Array.from(new Set(usStateArray))
     uniqueUsStates.sort()
     uniqueUsStates.unshift("None")
@@ -47,4 +48,4 @@ class UsStateSelecto extends Component{
   }
 }
 
-export default UsStateSelecto;
+export default UsStateSelect;

@@ -14,28 +14,75 @@ class FilterableBankTable extends Component {
       filterUsState: '',
       filterAssetHigh: '',
       filterAssetLow: '',
-      bks: this.props.bks
+      bks: this.props.bks,
+      filteredItems: this.props.bks
     };
+    this.updateFilterText = this.updateFilterText.bind(this);
+    this.updateFilterUsState = this.updateFilterUsState.bind(this);
+    this.updateAssetHigh = this.updateAssetHigh.bind(this);
+    this.updateAssetLow = this.updateAssetLow.bind(this);
+
   };
-  filterItems = (value, type) => {
-    switch (type) {
-      case 'filterText':
-        this.setState({filterText: value});
-        break;
-      case 'filterUsState':
-        this.setState({filterUsState: value})
-        break;
-      case 'filterAssetHigh':
-        this.setState({filterAssetHigh: value})
-        break;
-      case 'filterAssetLow':
-        this.setState({filterAssetLow: value})
-        break;
-      default:
-        break;
+  updateFilterText(value) {
+    const bks = this.props.bks;
+    console.log(bks)
+    const filteredBks = bks.filter(
+      (item) => item['name'].toLowerCase().search(
+              value.toLowerCase()) !== -1)
+    this.setState({
+      filterText: value,
+      filteredItems: filteredBks
+      });
     }
+  updateFilterUsState(value){
+    const bks = this.props.bks;
+    const filteredBks = bks.filter(
+      (item) => item['state'] === value)
+    this.setState({
+      filterUsState: value,
+      filteredItems: filteredBks
+    })
   }
+  updateAssetHigh(value){
+    const bks = this.props.bks;
+    let assetThousand = value * 1000;
+    const filteredBks = bks.filter(
+      (item) => item['asset'] <= assetThousand);
+    this.setState({
+      filterAssetHigh: value,
+      filteredItems: filteredBks
+    })
+  }
+  updateAssetLow(value){
+    const bks = this.props.bks;
+    let assetThousand = value * 1000;
+    const filteredBks = bks.filter(
+      (item) => item['asset'] <= assetThousand);
+    this.setState({
+      filterAssetLow: value,
+      filteredItems: filteredBks
+    })
+  }
+  /*componentWillUpdate(nextProps, nextState){
+    const filteredItems = this.props.bks;
+    const runFilteredText = filteredItems.filter(
+      (item) => item['name'].toLowerCase().search(
+        this.state.filterText.toLowerCase()) !== -1)
+    const runFilterState = runFilteredText.filter(
+      (item) => item['state'] === this.state.filterState)
+    const runFilterAssetHigh =  runFilterState.filter(
+      (item) => item['asset'] <= this.state.filterAssetHigh)
+    const runFilterAssetLow = runFilterAssetHigh.filter(
+      (item) => item['asset'] >= this.state.filterAssetLow)
+
+    this.setState({
+      filteredItems: runFilterAssetLow
+    })
+  }*/
   render () {
+    // intialBks = this.props.bks;
+
+
     let filteredItems = this.props.bks;
     let state = this.state;
     ["filterText", "filterUsState", "filterAssetHigh", "filterAssetLow"]
@@ -73,14 +120,14 @@ class FilterableBankTable extends Component {
             <FormGroup controlId="formBankSearch">
               <SearchBar
                 filterText={this.state.filterText}
-                onFilterTextInput={this.filterItems}
+                onFilterTextInput={this.updateFilterText}
               />
             </FormGroup>
             {' '}
             <UsStateSelect
-              bks={this.state.bks}
+              bks={this.props.bks}
               filterUsState={this.state.filterUsState}
-              onFilterUsState={this.filterItems}
+              onFilterUsState={this.updateFilterUsState}
             />
             {' '}
             <AssetSelect
@@ -88,7 +135,7 @@ class FilterableBankTable extends Component {
               valueArray={[0, 500, 1000, 5000]}
               label="Asset Low"
               gtOrlt="&gt;"
-              onFilterAsset={this.filterItems}
+              onFilterAsset={this.updateAssetLow}
               filterState="filterAssetLow"
             />
             {' '}
@@ -97,7 +144,7 @@ class FilterableBankTable extends Component {
               valueArray={[0, 500, 1000, 5000]}
               label="Asset High"
               gtOrlt="&lt;"
-              onFilterAsset={this.filterItems}
+              onFilterAsset={this.updateAssetHigh}
               filterState="filterAssetHigh"
             />
           </Form>
@@ -105,6 +152,7 @@ class FilterableBankTable extends Component {
         </Grid>
         <BankTable
         bks={filteredItems}
+        /*bks={this.state.filteredItems}*/
         filterText={this.state.filterText}
         filterUsState={this.state.filterUsState}
         />
