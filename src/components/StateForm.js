@@ -38,7 +38,8 @@ class UsStateSelect extends Component{
             <ControlLabel>State</ControlLabel>
             {' '}
             <FormControl componentClass="select"
-              placeholder="select" onChange={this.handleChange}>
+              placeholder="select" onChange={this.handleChange}
+              value={this.props.filterUsState}>
                 { usStateRows }
             </FormControl>
           </FormGroup>

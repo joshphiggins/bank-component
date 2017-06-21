@@ -4,7 +4,8 @@ import { formatDollarsRounded } from '../helpers';
 
 function AssetOptions ({gtOrlt, value}){
   const parseBool = Number.isInteger(value)
-  const parseValue = parseBool ? formatDollarsRounded(value) + 'M' : value
+  const parseValue = parseBool ? gtOrlt + ' ' +
+   formatDollarsRounded(value) + 'M' : value
   return(
     <option value={value}>{parseValue}</option>
   )
@@ -31,7 +32,7 @@ class AssetSelect extends Component {
         <ControlLabel>{this.props.label}</ControlLabel>
         {' '}
         <FormControl componentClass="select"
-          placeholder="select" onChange={this.handleChange}>
+          placeholder="select" onChange={this.handleChange} value={this.props.value}>
             {valueArray.map((item, index) =>
               <AssetOptions
                 key={index}
