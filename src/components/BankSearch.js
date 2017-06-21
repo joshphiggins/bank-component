@@ -4,7 +4,7 @@ import UsStateSelect from './StateForm';
 import AssetSelect from './AssetSelect';
 import BankTable from './BankTable';
 import SearchBar from './SearchBar';
-import { Grid, Col, Form, FormGroup } from 'react-bootstrap';
+import { Grid, Col, Form, Button, FormGroup } from 'react-bootstrap';
 
 class FilterableBankTable extends Component {
   constructor(props) {
@@ -21,6 +21,7 @@ class FilterableBankTable extends Component {
     this.updateFilterUsState = this.updateFilterUsState.bind(this);
     this.updateAssetHigh = this.updateAssetHigh.bind(this);
     this.updateAssetLow = this.updateAssetLow.bind(this);
+    this.clearFilters = this.clearFilters.bind(this);
 
   };
   updateFilterText(value) {
@@ -63,26 +64,15 @@ class FilterableBankTable extends Component {
       filteredItems: filteredBks
     })
   }
-  /*componentWillUpdate(nextProps, nextState){
-    const filteredItems = this.props.bks;
-    const runFilteredText = filteredItems.filter(
-      (item) => item['name'].toLowerCase().search(
-        this.state.filterText.toLowerCase()) !== -1)
-    const runFilterState = runFilteredText.filter(
-      (item) => item['state'] === this.state.filterState)
-    const runFilterAssetHigh =  runFilterState.filter(
-      (item) => item['asset'] <= this.state.filterAssetHigh)
-    const runFilterAssetLow = runFilterAssetHigh.filter(
-      (item) => item['asset'] >= this.state.filterAssetLow)
-
+  clearFilters () {
     this.setState({
-      filteredItems: runFilterAssetLow
+      filterText: '',
+      filterUsState: '',
+      filterAssetHigh: '',
+      filterAssetLow: ''
     })
-  }*/
+  }
   render () {
-    // intialBks = this.props.bks;
-
-
     let filteredItems = this.props.bks;
     let state = this.state;
     ["filterText", "filterUsState", "filterAssetHigh", "filterAssetLow"]
@@ -115,7 +105,7 @@ class FilterableBankTable extends Component {
     return (
       <div className="container-fluid">
         <Grid>
-          <Col md={12} >
+          <Col lg={12} >
           <Form inline>
             <FormGroup controlId="formBankSearch">
               <SearchBar
@@ -147,6 +137,12 @@ class FilterableBankTable extends Component {
               onFilterAsset={this.updateAssetHigh}
               filterState="filterAssetHigh"
             />
+            {' '}
+            <FormGroup>
+              <Button onClick={this.clearFilters}>
+                Clear Filters
+              </Button>
+            </FormGroup>
           </Form>
         </Col>
         </Grid>

@@ -17,7 +17,6 @@ class UsStateSelect extends Component{
     let value = event.target.value
     let none = value === 'None';
     let filterValue = none ? "" : value
-    // this.props.onFilterUsState(filterValue, "filterUsState");
     this.props.onFilterUsState(filterValue)
 
   }
