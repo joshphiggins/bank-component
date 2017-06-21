@@ -17,7 +17,7 @@ class FilterableBankTable extends Component {
         filterAssetLow: ''
       },
       bks: this.props.bks,
-      filteredItems: this.props.bks
+
     };
     this.updateFilterText = this.updateFilterText.bind(this);
     this.updateFilterUsState = this.updateFilterUsState.bind(this);
